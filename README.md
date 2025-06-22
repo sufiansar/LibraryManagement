@@ -51,12 +51,6 @@ PATCH /api/books/:id → Update books
 
 DELETE /api/books/:id → Delete books
 
-Borrow related API:
-POST /api/borrow → To lend books
-
-GET /api/borrow → View summary (using Aggregation)
----
-
 ###  Query Parameters:
 - filter: Genre (eg: FICTION, SCIENCE)
 
@@ -66,6 +60,14 @@ GET /api/borrow → View summary (using Aggregation)
 
 - limit: number (eg: 5)
 ---
+
+Borrow related API:
+POST /api/borrow → To lend books
+
+GET /api/borrow → View summary (using Aggregation)
+---
+
+
 ## How to use this 
 
 ```
