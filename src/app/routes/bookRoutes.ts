@@ -12,7 +12,7 @@ const bookRoutes = express.Router();
 bookRoutes.post("/", createBook);
 bookRoutes.get("/", getAllBooks);
 bookRoutes.get("/:bookId", getBookById);
-bookRoutes.patch("/:bookId", updateBook);
+bookRoutes.put("/:bookId", updateBook);
 bookRoutes.delete("/:bookId", deleteBook);
 
 export default bookRoutes;

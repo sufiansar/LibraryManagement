@@ -5,7 +5,7 @@ import { handleValidationError } from "../errorformat/validationError";
 
 export const createBook = async (req: Request, res: Response) => {
   try {
-    const bookData: IBook = req.body;
+    const bookData = req.body as IBook;
     const book = await Book.create(bookData);
 
     res.status(201).json({
@@ -32,7 +32,7 @@ export const getAllBooks = async (req: Request, res: Response) => {
       filter,
       sortBy = "createdAt",
       sort = "desc",
-      limit = "10",
+      limit = "5",
     } = req.query;
 
     const query: any = {};

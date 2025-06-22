@@ -9,7 +9,6 @@ let server: Server;
 const PORT = process.env.PORT;
 const DB_URL: string = process.env.DB_URI as string;
 
-console.log(PORT);
 async function main() {
   try {
     await mongoose.connect(DB_URL);
