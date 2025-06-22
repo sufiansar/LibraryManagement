@@ -62,9 +62,10 @@ DELETE /api/books/:id → Delete books
 ---
 
 Borrow related API:
-POST /api/borrow → To lend books
 
-GET /api/borrow → View summary (using Aggregation)
+#### POST /api/borrow → To lend books
+
+#### GET /api/borrow → View summary (using Aggregation)
 ---
 
 
