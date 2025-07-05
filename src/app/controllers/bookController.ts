@@ -32,7 +32,7 @@ export const getAllBooks = async (req: Request, res: Response) => {
       filter,
       sortBy = "createdAt",
       sort = "desc",
-      limit = "5",
+      limit = "40",
     } = req.query;
 
     const query: any = {};
