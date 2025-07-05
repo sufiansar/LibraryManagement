@@ -14,6 +14,63 @@ export const borrowBook = async (req: Request, res: Response) => {
         success: false,
       });
     }
+    // export const getAllBooks = async (req: Request, res: Response) => {
+    //   try {
+    //     const {
+    //       filter,
+    //       sortBy = "createdAt",
+    //       sort = "desc",
+    //       limit = "40",
+    //     } = req.query;
+
+    //     const query: any = {};
+
+    //     if (filter) {
+    //       const genreFilter = (filter as string).toUpperCase();
+
+    //       if (!Object.values(Genre).includes(genreFilter as Genre)) {
+    //         res.status(400).json({
+    //           success: false,
+    //           message: "Invalid genre filter",
+    //           error: {
+    //             validGenres: Object.values(Genre),
+    //           },
+    //         });
+    //       }
+    //       query.genre = genreFilter;
+    //     }
+    //     const limitNumber = parseInt(limit as string);
+    //     if (isNaN(limitNumber) || limitNumber < 1) {
+    //       res.status(400).json({
+    //         success: false,
+    //         message: "Copies must be a positive number",
+    //         error: {
+    //           received: limit,
+    //           expected: "Positive integer",
+    //         },
+    //       });
+    //     }
+
+    //     const books = await Book.find(query)
+    //       .sort({ [sortBy as string]: sort === "asc" ? 1 : -1 })
+    //       .limit(limitNumber);
+    //     res.status(200).json({
+    //       success: true,
+    //       message: "Books retrieved successfully",
+    //       data: books,
+    //     });
+    //   } catch (error: any) {
+    //     if (error.name === "ValidationError") {
+    //       res.status(400).json(handleValidationError(error));
+    //     } else {
+    //       res.status(500).json({
+    //         success: false,
+    //         message: "Failed to retrieve books",
+    //         error: error.message,
+    //       });
+    //     }
+    //   }
+    // };
 
     const bookToBorrow = await Book.findById(book);
     if (!bookToBorrow) {

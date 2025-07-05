@@ -32,7 +32,8 @@ export const getAllBooks = async (req: Request, res: Response) => {
       filter,
       sortBy = "createdAt",
       sort = "desc",
-      limit = "40",
+      limit = "10",
+      page = "1",
     } = req.query;
 
     const query: any = {};
@@ -51,25 +52,44 @@ export const getAllBooks = async (req: Request, res: Response) => {
       }
       query.genre = genreFilter;
     }
+
     const limitNumber = parseInt(limit as string);
-    if (isNaN(limitNumber) || limitNumber < 1) {
+    const pageNumber = parseInt(page as string);
+    const skip = (pageNumber - 1) * limitNumber;
+
+    if (
+      isNaN(limitNumber) ||
+      limitNumber < 1 ||
+      isNaN(pageNumber) ||
+      pageNumber < 1
+    ) {
       res.status(400).json({
         success: false,
-        message: "Copies must be a positive number",
+        message: "Limit and page must be positive numbers",
         error: {
-          received: limit,
-          expected: "Positive integer",
+          received: { limit, page },
+          expected: "Positive integers",
         },
       });
     }
 
+    const totalBooks = await Book.countDocuments(query);
+
     const books = await Book.find(query)
       .sort({ [sortBy as string]: sort === "asc" ? 1 : -1 })
+      .skip(skip)
       .limit(limitNumber);
+
     res.status(200).json({
       success: true,
       message: "Books retrieved successfully",
       data: books,
+      meta: {
+        total: totalBooks,
+        page: pageNumber,
+        limit: limitNumber,
+        totalPages: Math.ceil(totalBooks / limitNumber),
+      },
     });
   } catch (error: any) {
     if (error.name === "ValidationError") {
@@ -83,6 +103,7 @@ export const getAllBooks = async (req: Request, res: Response) => {
     }
   }
 };
+
 export const getBookById = async (req: Request, res: Response) => {
   try {
     const { bookId } = req.params;
